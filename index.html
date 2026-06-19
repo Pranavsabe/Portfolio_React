@@ -101,6 +101,221 @@
 
   .reveal { opacity: 0; transform: translateY(30px); transition: opacity .7s ease, transform .7s ease; }
   .reveal.vis { opacity: 1; transform: translateY(0); }
+
+  .nav-shell,
+  .hero-section,
+  .section-shell,
+  .band-section,
+  .contact-section,
+  .footer-shell {
+    width: 100%;
+  }
+
+  .hero-photo-frame {
+    max-width: min(340px, 78vw);
+    aspect-ratio: 17 / 20;
+    height: auto !important;
+  }
+
+  .fluid-grid {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)) !important;
+  }
+
+  .projects-grid {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)) !important;
+  }
+
+  .cert-grid {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)) !important;
+  }
+
+  @media (hover: none), (pointer: coarse) {
+    * { cursor: auto !important; }
+    #cursor-outer,
+    #cursor-inner {
+      display: none !important;
+    }
+  }
+
+  @media (max-width: 900px) {
+    .nav-shell {
+      padding: 14px 24px !important;
+      gap: 18px;
+    }
+
+    .nav-links {
+      gap: 18px !important;
+      overflow-x: auto;
+      padding: 4px 0 8px;
+      scrollbar-width: none;
+    }
+
+    .nav-links::-webkit-scrollbar {
+      display: none;
+    }
+
+    .hero-section {
+      min-height: auto !important;
+      flex-direction: column;
+      align-items: flex-start !important;
+      padding: 116px 24px 56px !important;
+      gap: 52px !important;
+    }
+
+    .hero-content {
+      width: 100%;
+    }
+
+    .hero-actions,
+    .hero-socials {
+      width: 100%;
+    }
+
+    .hero-photo-shell {
+      width: 100%;
+    }
+
+    .section-shell,
+    .band-section,
+    .contact-section {
+      padding-left: 24px !important;
+      padding-right: 24px !important;
+    }
+
+    .stats-grid {
+      flex-wrap: wrap;
+    }
+
+    .stat-card {
+      flex: 1 1 50% !important;
+      min-width: 50%;
+    }
+
+    .footer-shell {
+      padding: 22px 24px !important;
+      gap: 10px;
+      flex-direction: column;
+      text-align: center;
+    }
+  }
+
+  @media (max-width: 560px) {
+    body::after {
+      display: none;
+    }
+
+    .nav-shell {
+      align-items: flex-start !important;
+      flex-direction: column;
+      padding: 12px 18px !important;
+    }
+
+    .nav-links {
+      width: 100%;
+      gap: 14px !important;
+    }
+
+    .nav-links a {
+      font-size: 10px !important;
+      letter-spacing: 1.4px !important;
+      white-space: nowrap;
+    }
+
+    .hero-section {
+      padding: 132px 18px 46px !important;
+      gap: 42px !important;
+    }
+
+    .hero-title {
+      font-size: clamp(44px, 17vw, 60px) !important;
+      letter-spacing: -1.5px !important;
+    }
+
+    .hero-title span:last-child,
+    .outline-heading {
+      -webkit-text-stroke-width: 1.25px !important;
+    }
+
+    .hero-copy {
+      font-size: 14px !important;
+      margin-bottom: 30px !important;
+    }
+
+    .hero-actions a {
+      flex: 1 1 100%;
+      text-align: center;
+    }
+
+    .hero-socials {
+      flex-wrap: wrap;
+      gap: 10px !important;
+    }
+
+    .hero-socials a {
+      flex: 1 1 calc(50% - 10px);
+      justify-content: center;
+      min-width: 132px;
+    }
+
+    .hero-photo-frame {
+      max-width: min(292px, 74vw);
+      margin: 0 auto;
+    }
+
+    .photo-badge {
+      font-size: 10px !important;
+      padding: 5px 9px !important;
+    }
+
+    .section-shell,
+    .band-section,
+    .contact-section {
+      padding: 64px 18px !important;
+    }
+
+    .section-heading {
+      font-size: clamp(32px, 11vw, 44px) !important;
+      letter-spacing: -1px !important;
+      margin-bottom: 34px !important;
+    }
+
+    .stats-grid {
+      display: grid !important;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .stat-card {
+      min-width: 0;
+      padding: 24px 12px !important;
+      border-right: none !important;
+    }
+
+    .stat-card:nth-child(odd) {
+      border-right: 1px solid var(--border) !important;
+    }
+
+    .stat-card:nth-child(-n+2) {
+      border-bottom: 1px solid var(--border);
+    }
+
+    .card-pad {
+      padding: 22px !important;
+    }
+
+    .timeline {
+      padding-left: 24px !important;
+    }
+
+    .timeline-dot {
+      left: -30px !important;
+    }
+
+    .contact-links a {
+      width: 100%;
+      justify-content: center;
+      overflow-wrap: anywhere;
+    }
+  }
 </style>
 </head>
 <body>
@@ -196,6 +411,7 @@ function Typed({ strings, speed=70, pause=1800 }) {
 function TiltCard({ children, style, className }) {
   const ref = useRef(null);
   const handleMove = e => {
+    if (window.matchMedia('(hover: none), (pointer: coarse)').matches) return;
     const el = ref.current; if(!el) return;
     const r = el.getBoundingClientRect();
     const x = (e.clientX-r.left)/r.width-.5;
@@ -225,7 +441,7 @@ function Nav() {
   }, []);
   const links = ['home','skills','projects','experience','contact'];
   return (
-    <nav style={{
+    <nav className="nav-shell" style={{
       position:'fixed',top:0,left:0,right:0,zIndex:1000,
       padding:'16px 64px',
       display:'flex',alignItems:'center',justifyContent:'space-between',
@@ -238,7 +454,7 @@ function Nav() {
         <span style={{color:'var(--cyan)'}}>P</span><span style={{color:'var(--text)'}}>S</span>
         <span style={{color:'var(--amber)',fontSize:10,marginLeft:6,fontFamily:'JetBrains Mono,monospace',fontWeight:400,letterSpacing:2}}>DEV</span>
       </div>
-      <div style={{display:'flex',gap:40,alignItems:'center'}}>
+      <div className="nav-links" style={{display:'flex',gap:40,alignItems:'center'}}>
         {links.map(l => (
           <a key={l} href={`#${l}`} data-hover
             style={{
@@ -276,7 +492,7 @@ function Hero() {
   }, []);
 
   return (
-    <section id="home" style={{
+    <section id="home" className="hero-section" style={{
       minHeight:'100vh', display:'flex', alignItems:'center',
       padding:'120px 64px 60px',
       position:'relative',
@@ -287,7 +503,7 @@ function Hero() {
       <div style={{position:'absolute',bottom:'10%',left:'10%',width:400,height:400,borderRadius:'50%',background:'radial-gradient(circle,rgba(255,183,3,0.05),transparent 70%)',pointerEvents:'none'}}></div>
 
       {/* Left content */}
-      <div style={{flex:1,zIndex:1}}>
+      <div className="hero-content" style={{flex:1,zIndex:1}}>
         {/* Terminal boot */}
         {!booted && (
           <div style={{
@@ -315,7 +531,7 @@ function Hero() {
             OPEN TO WORK
           </div>
 
-          <h1 style={{
+          <h1 className="hero-title" style={{
             fontFamily:'Syne,sans-serif',fontWeight:800,
             fontSize:'clamp(52px,6.5vw,90px)',
             lineHeight:1.0,letterSpacing:-3,marginBottom:20,
@@ -338,16 +554,16 @@ function Hero() {
             <Typed strings={['Java Full Stack Developer','Spring Boot Engineer','DSA Problem Solver','Tech Leader & Builder']} />
           </div>
 
-          <p style={{
+          <p className="hero-copy" style={{
             fontSize:15,lineHeight:1.8,
             color:'rgba(226,232,240,0.65)',
             maxWidth:500,marginBottom:40,
             animation:'slideLeft .7s ease .3s both',
           }}>
-            B.Tech IT graduate with 5+ internships, strong Java expertise, and a passion for building scalable, clean, and performant applications. 200+ DSA problems solved on LeetCode.
+            B.Tech IT graduate with 5+ internships, strong Java expertise, and a passion for building scalable, clean, and performant applications. 300+ DSA problems solved on LeetCode.
           </p>
 
-          <div style={{display:'flex',gap:16,flexWrap:'wrap',animation:'fadeUp .7s ease .4s both'}}>
+          <div className="hero-actions" style={{display:'flex',gap:16,flexWrap:'wrap',animation:'fadeUp .7s ease .4s both'}}>
             <a href="#contact" data-hover style={{
               padding:'13px 32px',background:'var(--cyan)',color:'#000',
               borderRadius:6,fontFamily:'Syne,sans-serif',fontWeight:700,fontSize:13,
@@ -369,7 +585,7 @@ function Hero() {
           </div>
 
           {/* Social links */}
-          <div style={{display:'flex',gap:16,marginTop:36,animation:'fadeUp .7s ease .5s both'}}>
+          <div className="hero-socials" style={{display:'flex',gap:16,marginTop:36,animation:'fadeUp .7s ease .5s both'}}>
             {[
               {l:'GitHub',u:'https://github.com/Pranavsabe',i:'⚡'},
               {l:'LinkedIn',u:'https://linkedin.com/in/pranav-sabe-78044a259',i:'💼'},
@@ -391,12 +607,12 @@ function Hero() {
       </div>
 
       {/* Right — Photo */}
-      <div style={{
+      <div className="hero-photo-shell" style={{
         flexShrink:0,zIndex:1,
         display:'flex',justifyContent:'center',alignItems:'center',
         animation:'slideRight .8s ease .3s both',
       }}>
-        <div style={{position:'relative',width:340,height:400}}>
+        <div className="hero-photo-frame" style={{position:'relative',width:340,height:400}}>
           {/* Rotating rings */}
           {[1,2,3].map(i => (
             <div key={i} style={{
@@ -409,14 +625,14 @@ function Hero() {
             }}></div>
           ))}
           {/* Glow */}
-          <div style={{
+          <div className="photo-badge" style={{
             position:'absolute',inset:-30,
             background:'radial-gradient(ellipse,rgba(0,245,212,0.18),transparent 70%)',
             borderRadius:'50%',animation:'pulse 3s ease-in-out infinite',
             pointerEvents:'none',
           }}></div>
           {/* Photo */}
-          <div style={{
+          <div className="photo-badge" style={{
             position:'absolute',inset:0,
             borderRadius:'40% 60% 60% 40% / 40% 40% 60% 60%',
             overflow:'hidden',
@@ -441,7 +657,7 @@ function Hero() {
             borderRadius:8,padding:'6px 12px',
             fontFamily:'JetBrains Mono,monospace',fontSize:11,color:'var(--cyan)',
             boxShadow:'0 0 16px rgba(0,245,212,0.2)',
-          }}>250+ DSA ⚡</div>
+          }}>300+ DSA ⚡</div>
         </div>
       </div>
     </section>
@@ -451,20 +667,20 @@ function Hero() {
 // ── STATS ─────────────────────────────────────────────────────────────────────
 function Stats() {
   const items = [
-    {n:'250+',l:'DSA Problems'},
+    {n:'300+',l:'DSA Problems'},
     {n:'5+',l:'Internships'},
     {n:'3+',l:'Projects Built'},
     {n:'96%',l:'HSC Score'},
   ];
   return (
-    <div className="reveal" style={{
+    <div className="reveal stats-grid" style={{
       borderTop:'1px solid var(--border)',borderBottom:'1px solid var(--border)',
       background:'var(--surface)',
       display:'flex',justifyContent:'center',gap:0,
       overflow:'hidden',
     }}>
       {items.map((item,i) => (
-        <div key={i} style={{
+        <div key={i} className="stat-card" style={{
           flex:1,padding:'32px 24px',textAlign:'center',
           borderRight: i<items.length-1 ? '1px solid var(--border)' : 'none',
           transition:'background .3s',
@@ -495,14 +711,14 @@ function Skills() {
     {title:'Tools',icon:'⌘',items:['Git','GitHub','VS Code','Eclipse','Wix Studio'],color:'var(--amber)'},
   ];
   return (
-    <section id="skills" style={{padding:'100px 64px',maxWidth:1200,margin:'0 auto'}}>
+    <section id="skills" className="section-shell" style={{padding:'100px 64px',maxWidth:1200,margin:'0 auto'}}>
       <div className="reveal" style={{fontFamily:'JetBrains Mono,monospace',fontSize:11,letterSpacing:3,textTransform:'uppercase',color:'var(--cyan)',marginBottom:12}}>Technical Stack</div>
-      <h2 className="reveal" style={{fontFamily:'Syne,sans-serif',fontWeight:800,fontSize:'clamp(38px,4vw,60px)',letterSpacing:-2,marginBottom:60,lineHeight:1.05}}>
+      <h2 className="reveal section-heading" style={{fontFamily:'Syne,sans-serif',fontWeight:800,fontSize:'clamp(38px,4vw,60px)',letterSpacing:-2,marginBottom:60,lineHeight:1.05}}>
         What I <span style={{WebkitTextStroke:'2px var(--amber)',color:'transparent'}}>Master</span>
       </h2>
-      <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(280px,1fr))',gap:20}}>
+      <div className="fluid-grid" style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(280px,1fr))',gap:20}}>
         {cats.map((cat,i) => (
-          <TiltCard key={i} className="reveal" style={{
+          <TiltCard key={i} className="reveal card-pad" style={{
             background:'var(--card)',
             border:'1px solid var(--border)',
             borderRadius:16,padding:28,
@@ -563,18 +779,18 @@ function Projects() {
     },
   ];
   return (
-    <section id="projects" style={{
+    <section id="projects" className="band-section" style={{
       padding:'100px 64px',
       background:'linear-gradient(180deg,transparent,rgba(0,245,212,0.02),transparent)',
     }}>
       <div style={{maxWidth:1200,margin:'0 auto'}}>
         <div className="reveal" style={{fontFamily:'JetBrains Mono,monospace',fontSize:11,letterSpacing:3,textTransform:'uppercase',color:'var(--cyan)',marginBottom:12}}>Selected Work</div>
-        <h2 className="reveal" style={{fontFamily:'Syne,sans-serif',fontWeight:800,fontSize:'clamp(38px,4vw,60px)',letterSpacing:-2,marginBottom:60,lineHeight:1.05}}>
+        <h2 className="reveal section-heading" style={{fontFamily:'Syne,sans-serif',fontWeight:800,fontSize:'clamp(38px,4vw,60px)',letterSpacing:-2,marginBottom:60,lineHeight:1.05}}>
           Things I've <span style={{color:'var(--cyan)',textShadow:'0 0 30px rgba(0,245,212,0.5)'}}>Built</span>
         </h2>
-        <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(320px,1fr))',gap:24}}>
+        <div className="projects-grid" style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(320px,1fr))',gap:24}}>
           {projects.map((p,i) => (
-            <TiltCard key={i} className="reveal" style={{
+            <TiltCard key={i} className="reveal card-pad" style={{
               background:'var(--card)',border:'1px solid var(--border)',
               borderRadius:20,padding:'36px 32px',
               position:'relative',overflow:'hidden',
@@ -643,16 +859,16 @@ function Experience() {
     },
   ];
   return (
-    <section id="experience" style={{padding:'100px 64px',maxWidth:1200,margin:'0 auto'}}>
+    <section id="experience" className="section-shell" style={{padding:'100px 64px',maxWidth:1200,margin:'0 auto'}}>
       <div className="reveal" style={{fontFamily:'JetBrains Mono,monospace',fontSize:11,letterSpacing:3,textTransform:'uppercase',color:'var(--amber)',marginBottom:12}}>Career</div>
-      <h2 className="reveal" style={{fontFamily:'Syne,sans-serif',fontWeight:800,fontSize:'clamp(38px,4vw,60px)',letterSpacing:-2,marginBottom:60,lineHeight:1.05}}>
-        My <span style={{WebkitTextStroke:'2px var(--cyan)',color:'transparent'}}>Journey</span>
+      <h2 className="reveal section-heading" style={{fontFamily:'Syne,sans-serif',fontWeight:800,fontSize:'clamp(38px,4vw,60px)',letterSpacing:-2,marginBottom:60,lineHeight:1.05}}>
+        My <span className="outline-heading" style={{WebkitTextStroke:'2px var(--cyan)',color:'transparent'}}>Journey</span>
       </h2>
-      <div style={{position:'relative',paddingLeft:40}}>
+      <div className="timeline" style={{position:'relative',paddingLeft:40}}>
         <div style={{position:'absolute',left:0,top:0,bottom:0,width:1,background:'linear-gradient(to bottom,var(--cyan),rgba(0,245,212,0))'}}></div>
         {items.map((item,i) => (
           <div key={i} className="reveal" style={{position:'relative',marginBottom:52}}>
-            <div style={{
+            <div className="timeline-dot" style={{
               position:'absolute',left:-46,top:8,
               width:12,height:12,borderRadius:'50%',
               background:item.color,
@@ -686,14 +902,14 @@ function Certifications() {
     {t:'Cloud Bootcamp',org:'Google',color:'var(--cyan)'},
   ];
   return (
-    <section style={{padding:'80px 64px',maxWidth:1200,margin:'0 auto'}}>
+    <section className="section-shell" style={{padding:'80px 64px',maxWidth:1200,margin:'0 auto'}}>
       <div className="reveal" style={{fontFamily:'JetBrains Mono,monospace',fontSize:11,letterSpacing:3,textTransform:'uppercase',color:'var(--cyan)',marginBottom:12}}>Credentials</div>
-      <h2 className="reveal" style={{fontFamily:'Syne,sans-serif',fontWeight:800,fontSize:'clamp(38px,4vw,60px)',letterSpacing:-2,marginBottom:48,lineHeight:1.05}}>
+      <h2 className="reveal section-heading" style={{fontFamily:'Syne,sans-serif',fontWeight:800,fontSize:'clamp(38px,4vw,60px)',letterSpacing:-2,marginBottom:48,lineHeight:1.05}}>
         <span style={{color:'var(--amber)'}}>Certified</span> Skills
       </h2>
-      <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(220px,1fr))',gap:16}}>
+      <div className="cert-grid" style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(220px,1fr))',gap:16}}>
         {certs.map((c,i) => (
-          <div key={i} className="reveal" style={{
+          <div key={i} className="reveal card-pad" style={{
             background:'var(--card)',border:'1px solid var(--border)',
             borderRadius:12,padding:'20px 24px',
             display:'flex',alignItems:'flex-start',gap:12,
@@ -718,24 +934,24 @@ function Certifications() {
 function Achievements() {
   const items = [
     {icon:'🏆',text:'5th rank in TopBrains Hackathon'},
-    {icon:'⚡',text:'250+ DSA problems solved on LeetCode with streak badges'},
+    {icon:'⚡',text:'300+ DSA problems solved on LeetCode with streak badges'},
     {icon:'👨‍💼',text:'Head of Technical Committee – Departmental Forum (IT-PCE)'},
     {icon:'🌿',text:'Co-Incharge, NSS – PCE Nagpur (2022–23)'},
     {icon:'🌐',text:'Portfolio site built and deployed on Wix Studio'},
   ];
   return (
-    <section style={{
+    <section className="band-section" style={{
       padding:'80px 64px',
       background:'linear-gradient(180deg,transparent,rgba(255,183,3,0.02),transparent)',
     }}>
       <div style={{maxWidth:1200,margin:'0 auto'}}>
         <div className="reveal" style={{fontFamily:'JetBrains Mono,monospace',fontSize:11,letterSpacing:3,textTransform:'uppercase',color:'var(--amber)',marginBottom:12}}>Recognition</div>
-        <h2 className="reveal" style={{fontFamily:'Syne,sans-serif',fontWeight:800,fontSize:'clamp(38px,4vw,60px)',letterSpacing:-2,marginBottom:48,lineHeight:1.05}}>
+        <h2 className="reveal section-heading" style={{fontFamily:'Syne,sans-serif',fontWeight:800,fontSize:'clamp(38px,4vw,60px)',letterSpacing:-2,marginBottom:48,lineHeight:1.05}}>
           Key <span style={{color:'var(--amber)',textShadow:'0 0 30px rgba(255,183,3,0.4)'}}>Wins</span>
         </h2>
-        <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(280px,1fr))',gap:16}}>
+        <div className="fluid-grid" style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(280px,1fr))',gap:16}}>
           {items.map((a,i) => (
-            <div key={i} className="reveal" style={{
+            <div key={i} className="reveal card-pad" style={{
               background:'var(--card)',border:'1px solid var(--border)',
               borderRadius:12,padding:'24px',
               display:'flex',alignItems:'flex-start',gap:16,
@@ -761,20 +977,20 @@ function Achievements() {
 // ── CONTACT ───────────────────────────────────────────────────────────────────
 function Contact() {
   return (
-    <section id="contact" style={{
+    <section id="contact" className="contact-section" style={{
       padding:'100px 64px',
       background:'var(--surface)',
       borderTop:'1px solid var(--border)',
       textAlign:'center',
     }}>
       <div className="reveal" style={{fontFamily:'JetBrains Mono,monospace',fontSize:11,letterSpacing:3,textTransform:'uppercase',color:'var(--cyan)',marginBottom:12}}>Get In Touch</div>
-      <h2 className="reveal" style={{fontFamily:'Syne,sans-serif',fontWeight:800,fontSize:'clamp(42px,5vw,72px)',letterSpacing:-2,marginBottom:20,lineHeight:1.05}}>
-        Let's <span style={{WebkitTextStroke:'2px var(--cyan)',color:'transparent'}}>Connect</span>
+      <h2 className="reveal section-heading" style={{fontFamily:'Syne,sans-serif',fontWeight:800,fontSize:'clamp(42px,5vw,72px)',letterSpacing:-2,marginBottom:20,lineHeight:1.05}}>
+        Let's <span className="outline-heading" style={{WebkitTextStroke:'2px var(--cyan)',color:'transparent'}}>Connect</span>
       </h2>
       <p className="reveal" style={{fontSize:15,color:'var(--muted)',maxWidth:460,margin:'0 auto 48px',lineHeight:1.8,fontFamily:'Outfit,sans-serif'}}>
         I'm actively looking for opportunities. Whether you have a role, a project, or just want to chat tech — I'm all ears.
       </p>
-      <div className="reveal" style={{display:'flex',justifyContent:'center',gap:16,flexWrap:'wrap'}}>
+      <div className="reveal contact-links" style={{display:'flex',justifyContent:'center',gap:16,flexWrap:'wrap'}}>
         {[
           {icon:'✉️',label:'pranavsabe01@gmail.com',href:'mailto:pranavsabe01@gmail.com'},
           {icon:'📞',label:'+91 7397954509',href:'tel:+917397954509'},
@@ -801,7 +1017,7 @@ function Contact() {
 
 function Footer() {
   return (
-    <footer style={{
+    <footer className="footer-shell" style={{
       padding:'24px 64px',
       borderTop:'1px solid var(--border)',
       display:'flex',justifyContent:'space-between',alignItems:'center',
