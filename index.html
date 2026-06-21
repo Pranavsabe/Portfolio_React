@@ -997,45 +997,141 @@ function Certifications() {
     </section>
   );
 }
-
 // ── ACHIEVEMENTS ──────────────────────────────────────────────────────────────
 function Achievements() {
   const items = [
-    {icon:'🏆',text:'5th rank in TopBrains Hackathon'},
-    {icon:'⚡',text:'300+ DSA problems solved on LeetCode with streak badges'},
-    {icon:'👨‍💼',text:'Head of Technical Committee – Departmental Forum (IT-PCE)'},
-    {icon:'🌿',text:'Co-Incharge, NSS – PCE Nagpur (2022–23)'},
-    {icon:'🌐',text:'Portfolio site built and deployed on Wix Studio'},
+    { icon: '🏆', text: '5th rank in TopBrains Hackathon' },
+    { icon: '⚡', text: '300+ DSA problems solved on LeetCode with streak badges' },
+    { icon: '👨‍💼', text: 'Head of Technical Committee – Departmental Forum (IT-PCE)' },
+    { icon: '🌿', text: 'Co-Incharge, NSS – PCE Nagpur (2022–23)' },
+    {
+      icon: '🌐',
+      text: 'Portfolio site built and deployed on Wix Studio',
+      link: 'https://pranavsabe.github.io/Portfolio_resposive/'
+    },
   ];
+
   return (
-    <section className="band-section" style={{
-      padding:'80px 64px',
-      background:'linear-gradient(180deg,transparent,rgba(255,183,3,0.02),transparent)',
-    }}>
-      <div style={{maxWidth:1200,margin:'0 auto'}}>
-        <div className="reveal" style={{fontFamily:'JetBrains Mono,monospace',fontSize:11,letterSpacing:3,textTransform:'uppercase',color:'var(--amber)',marginBottom:12}}>Recognition</div>
-        <h2 className="reveal section-heading" style={{fontFamily:'Syne,sans-serif',fontWeight:800,fontSize:'clamp(38px,4vw,60px)',letterSpacing:-2,marginBottom:48,lineHeight:1.05}}>
-          Key <span style={{color:'var(--amber)',textShadow:'0 0 30px rgba(255,183,3,0.4)'}}>Wins</span>
-        </h2>
-        <div className="fluid-grid" style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(280px,1fr))',gap:16}}>
-          {items.map((a,i) => (
-            <div key={i} className="reveal card-pad" style={{
-              background:'var(--card)',border:'1px solid var(--border)',
-              borderRadius:12,padding:'24px',
-              display:'flex',alignItems:'flex-start',gap:16,
-              transition:'all .3s',
+    <section
+      className="band-section"
+      style={{
+        padding: '80px 64px',
+        background:
+          'linear-gradient(180deg,transparent,rgba(255,183,3,0.02),transparent)',
+      }}
+    >
+      <div style={{ maxWidth: 1200, margin: '0 auto' }}>
+        <div
+          className="reveal"
+          style={{
+            fontFamily: 'JetBrains Mono,monospace',
+            fontSize: 11,
+            letterSpacing: 3,
+            textTransform: 'uppercase',
+            color: 'var(--amber)',
+            marginBottom: 12,
+          }}
+        >
+          Recognition
+        </div>
+
+        <h2
+          className="reveal section-heading"
+          style={{
+            fontFamily: 'Syne,sans-serif',
+            fontWeight: 800,
+            fontSize: 'clamp(38px,4vw,60px)',
+            letterSpacing: -2,
+            marginBottom: 48,
+            lineHeight: 1.05,
+          }}
+        >
+          Key{' '}
+          <span
+            style={{
+              color: 'var(--amber)',
+              textShadow: '0 0 30px rgba(255,183,3,0.4)',
             }}
-            onMouseEnter={e=>{e.currentTarget.style.borderColor='rgba(255,183,3,0.3)';e.currentTarget.style.transform='translateY(-3px)';e.currentTarget.style.boxShadow='0 15px 40px rgba(255,183,3,0.08)';}}
-            onMouseLeave={e=>{e.currentTarget.style.borderColor='var(--border)';e.currentTarget.style.transform='none';e.currentTarget.style.boxShadow='none';}}
-            data-hover>
-              <div style={{
-                width:44,height:44,borderRadius:10,flexShrink:0,
-                background:'rgba(255,183,3,0.1)',border:'1px solid rgba(255,183,3,0.2)',
-                display:'flex',alignItems:'center',justifyContent:'center',fontSize:20,
-              }}>{a.icon}</div>
-              <div style={{fontSize:14,color:'rgba(226,232,240,0.75)',lineHeight:1.65}}>{a.text}</div>
-            </div>
-          ))}
+          >
+            Wins
+          </span>
+        </h2>
+
+        <div
+          className="fluid-grid"
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit,minmax(280px,1fr))',
+            gap: 16,
+          }}
+        >
+          {items.map((a, i) => {
+            const CardTag = a.link ? 'a' : 'div';
+
+            return (
+              <CardTag
+                key={i}
+                href={a.link}
+                target={a.link ? '_blank' : undefined}
+                rel={a.link ? 'noopener noreferrer' : undefined}
+                className="reveal card-pad"
+                style={{
+                  background: 'var(--card)',
+                  border: '1px solid var(--border)',
+                  borderRadius: 12,
+                  padding: '24px',
+                  display: 'flex',
+                  alignItems: 'flex-start',
+                  gap: 16,
+                  transition: 'all .3s',
+                  textDecoration: 'none',
+                  color: 'inherit',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.borderColor =
+                    'rgba(255,183,3,0.3)';
+                  e.currentTarget.style.transform = 'translateY(-3px)';
+                  e.currentTarget.style.boxShadow =
+                    '0 15px 40px rgba(255,183,3,0.08)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.borderColor = 'var(--border)';
+                  e.currentTarget.style.transform = 'none';
+                  e.currentTarget.style.boxShadow = 'none';
+                }}
+                data-hover
+              >
+                <div
+                  style={{
+                    width: 44,
+                    height: 44,
+                    borderRadius: 10,
+                    flexShrink: 0,
+                    background: 'rgba(255,183,3,0.1)',
+                    border: '1px solid rgba(255,183,3,0.2)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    fontSize: 20,
+                  }}
+                >
+                  {a.icon}
+                </div>
+
+                <div
+                  style={{
+                    fontSize: 14,
+                    color: a.link
+                      ? 'var(--amber)'
+                      : 'rgba(226,232,240,0.75)',
+                    lineHeight: 1.65,
+                  }}
+                >
+                  {a.text}
+                </div>
+              </CardTag>
+            );
+          })}
         </div>
       </div>
     </section>
